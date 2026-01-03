@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Generator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="./master.css">
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="shortcut icon" href="" type="image/x-icon">
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <header class="main-header">
+      <nav class="navbar navbar-expand-md">
+        <div class="container">
+          <a href="" class="navbar-brand">CSV Generator</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <div class="input-section">
+        <div class="container">
+
+          <div class="row dropdown-row">
+            <div class="col-md-6 test-type-dropdown">
+              <label for="test-type" class="form-label">Test Type</label>
+              <select id="test-type" class="form-select" aria-label="Test Type Select">
+                <option selected value="">Select a test type</option>
+                <option class="select-option" value="blood">Blood Test</option>
+                <option class="select-option" value="dna">DNA Test</option>
+              </select>
+            </div>
+
+            <div class="col-md-6" id="blood-tests">
+              <label for="blood-test-type" class="form-label">Blood Test Type</label>
+              <select id="blood-test-type" class="form-select" aria-label="Blood Test Type">
+                <option selected value="">Select a blood test type</option>
+              </select>
+            </div>
+
+            <div class="col-md-6" id="dna-tests">
+              <label for="dna-test-type" class="form-label">DNA Test Type</label>
+              <select id="dna-test-type" class="form-select" aria-label="DNA Test Type">
+                <option class="select-option" selected value="">Select a DNA test type</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row dropdown-row">
+            <input type="hidden" name="" id="test-type-hidden" value="">
+            <div class="col-md-6 barcode-input form-group" id="primary-barcode-input">
+              <label for="primary-barcode" class="form-label">Primary Barcode</label>
+              <input type="text" class="form-control" id="primary-barcode" value="">
+              <small class="error text-danger" id="primary-barcode-error"></small>
+            </div>
+            <div class="col-md-6 barcode-input form-group" id="secondary-barcode-input">
+              <label for="secondary-barcode" class="form-label">Secondary Barcode</label>
+              <input type="text" class="form-control" id="secondary-barcode" value="">
+              <small class="error text-danger" id="secondary-barcode-error"></small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4 col-sm-6 mx-auto generate-csv-btn">
+              <button type="button" class="btn btn-primary neubrutalist-btn" id="generate-csv">Generate CSV</button>
+            </div>
+            <div class="col-lg-4 col-sm-6 mx-auto reset-page-btn">
+              <button type="button" class="btn btn-primary neubrutalist-btn" id="reset-page">Reset</button>
+            </div>
+          </div>
+
+          <div class="row csv-column"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p class="copyright">Made by</p>
+      <p>|</p>
+      <p class="copyright"><strong>Zaid</strong></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script type="module" src="./script.js"></script>
+</body>
+
+</html>
