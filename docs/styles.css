@@ -65,7 +65,8 @@ option:hover {
 	box-shadow: 2px 2px 0px 0px #000;
 }
 
-.form-select:focus {
+.form-select:focus,
+.form-control:focus {
 	outline: none !important;
 	box-shadow: 0 0 0 2px #000;
 	border: 1px solid #000;
@@ -184,3 +185,4 @@ option:hover {
 		align-items: center;
 	}
 }
+
