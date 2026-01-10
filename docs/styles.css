@@ -142,7 +142,6 @@ option:hover {
 	background-color: #f8f9fa;
 	border: 1px solid #1f1f1f;
 	box-shadow: 6px 4px 0px 0px #000;
-	max-width: 48% !important;
 }
 
 .single-csv-output {
