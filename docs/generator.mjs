@@ -17,7 +17,7 @@ function renderRow(barcode, biomarker) {
         '2000-11-11',
         '2026-01-10 09:41:00.930',
         '2026-01-10 09:41:00.930',
-        returnTime,
+        returnTime(),
         biomarker,
         BIOMARKER_VALUES[biomarker],
         '',
@@ -34,3 +34,4 @@ function generateCsv(barcode, biomarkerList) {
 }
 
 export default generateCsv;
+
