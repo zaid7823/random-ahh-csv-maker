@@ -113,7 +113,6 @@ function validateAndUpdateButton(onSubmit = false) {
     const generateCsvButton = document.querySelector('.generate-csv-btn');
     const bloodTestType = document.querySelector('#blood-test-type').value;
     const barcodes = TESTS[bloodTestType]?.barcodes;
-    let showGenerateCsvBtnOnInput = false;
 
     // Validate primary barcode (mandatory)
     let primaryValue = primaryBarcodeInput?.value || '';
@@ -170,9 +169,12 @@ function validateAndUpdateButton(onSubmit = false) {
     const bloodTestTypeSelected = document.querySelector('#blood-test-type').value !== '';
 
     if (testTypeSelected && bloodTestTypeSelected && isPrimaryValid && isSecondaryValid) {
-        if (validateBarcode(secondaryValue)) {
+        if (isSecondaryValid && validateBarcode(secondaryValue)) {
             console.log(`secondary: ${secondaryValue} - ${validateBarcode(secondaryValue)}`)
-            generateCsvButton.style.display = 'block';
+            generateCsvButton.style.display = 'flex';
+        }
+        else {
+            generateCsvButton.style.display = 'flex';
         }
     } else {
         generateCsvButton.style.display = 'none';
@@ -256,7 +258,7 @@ function render() {
     let primaryCsv = generateCsv(primaryBarcodeInput.value, TESTS[test]?.primary);
 
     const primaryOutputDiv = document.createElement('div');
-    primaryOutputDiv.className = 'col-md-6 mx-auto csv-output';
+    primaryOutputDiv.className = 'col-md-12 mx-auto single-csv-output';
     // primaryOutputDiv.className = 'csv-output';
 
     const primaryOutput = document.createElement('pre');
