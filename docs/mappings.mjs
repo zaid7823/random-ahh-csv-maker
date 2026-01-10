@@ -70,9 +70,23 @@ export const TESTS = {
             'RDW', 'WBC', 'NEU', 'LYMP', 'MONO',
             'EOS', 'BAS', 'PLT', 'HBA1c'
         ]
+    },
+    "blood-thyroid": {
+        barcodes: 1,
+        primary: [
+            'FT4', 'TSH'
+        ]
+    },
+    "blood-cholesterol": {
+        barcodes: 1,
+        primary: [
+            'CHLHDLRTO', 'NHDL', 'CHOL', 'HDL', 'LDL', 'TRIG'
+        ]
     }
 };
 
 export const TEST_LOOKUP = {
-    "thrive-panel": "Thrive Panel"
+    "thrive-panel": "Thrive Panel",
+    "blood-thyroid": "Thyroid Profile Test",
+    "blood-cholesterol": "Blood Cholesterol"
 }
