@@ -9,6 +9,7 @@
 	min-height: 75px;
 	background-color: rgb(161, 161, 161);
 	box-shadow: 0px 0px 0px 2px #000;
+	z-index: 10;
 }
 
 .navbar {
@@ -181,6 +182,7 @@ option:hover {
 	background-color: rgb(161, 161, 161);
 	height: 75px;
 	box-shadow: 0px 0px 0px 2px #000;
+	z-index: 10;
 }
 
 .footer-content {
