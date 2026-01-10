@@ -11,8 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const bloodTestsList = document.querySelector('#blood-tests');
     const dnaTestsList = document.querySelector('#dna-tests');
 
-    const primaryBarcodeInput = document.querySelector('#primary-barcode-input');
-    const secondaryBarcodeInput = document.querySelector('#secondary-barcode-input');
+    const primaryBarcodeDiv = document.querySelector('#primary-barcode-input');
+    const secondaryBarcodeDiv = document.querySelector('#secondary-barcode-input');
+
+    const primaryBarcodeInput = document.querySelector('#primary-barcode');
+    const secondaryBarcodeInput = document.querySelector('#secondary-barcode');
 
     document.querySelector('#test-type').addEventListener('change', handleTestTypeChange);
     document.querySelector('#blood-test-type').addEventListener('change', handleBloodTestTypeChange);
@@ -20,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
     bloodTestsList.style.display = 'none';
     dnaTestsList.style.display = 'none';
 
-    primaryBarcodeInput.style.display = 'none';
-    secondaryBarcodeInput.style.display = 'none';
+    primaryBarcodeDiv.style.display = 'none';
+    secondaryBarcodeDiv.style.display = 'none';
 
     primaryBarcodeInput.value = '';
     secondaryBarcodeInput.value = '';
@@ -54,11 +57,12 @@ function addOption(selectId, value, text) {
 }
 
 function handleBarcodeInput(event) {
+    let submitFlag = false;
     // First format the barcode
     formatBarcode(event);
 
     // Then validate and update button visibility
-    validateAndUpdateButton();
+    validateAndUpdateButton(submitFlag);
 }
 
 function formatBarcode(event) {
@@ -103,22 +107,27 @@ function validateBarcode(barcode) {
     return barcodeRegex.test(barcode);
 }
 
-function validateAndUpdateButton() {
+function validateAndUpdateButton(onSubmit = false) {
     const primaryBarcodeInput = document.querySelector('#primary-barcode');
     const secondaryBarcodeInput = document.querySelector('#secondary-barcode');
     const generateCsvButton = document.querySelector('.generate-csv-btn');
     const bloodTestType = document.querySelector('#blood-test-type').value;
     const barcodes = TESTS[bloodTestType]?.barcodes;
+    let showGenerateCsvBtnOnInput = false;
 
     // Validate primary barcode (mandatory)
-    const primaryValue = primaryBarcodeInput?.value || '';
+    let primaryValue = primaryBarcodeInput?.value || '';
+    let secondaryValue;
     isPrimaryValid = validateBarcode(primaryValue);
 
     // Validate secondary barcode if needed (optional)
     if (barcodes === 2) {
-        const secondaryValue = secondaryBarcodeInput?.value || '';
-        // Secondary is optional, so it's valid if empty OR properly formatted
-        isSecondaryValid = validateBarcode(secondaryValue);
+        secondaryValue = secondaryBarcodeInput?.value || '';
+        // Secondary is optional, so it's valid if:
+        // 1. It's empty (user hasn't started typing), OR
+        // 2. It has content and is properly formatted
+        const hasSecondaryContent = secondaryValue.trim().length > 0;
+        isSecondaryValid = !hasSecondaryContent || validateBarcode(secondaryValue);
     } else {
         // If only one barcode is needed, secondary is always valid
         isSecondaryValid = true;
@@ -129,11 +138,31 @@ function validateAndUpdateButton() {
     const secondaryError = document.querySelector('#secondary-barcode-error');
 
     if (primaryBarcodeInput) {
-        primaryError.textContent = isPrimaryValid ? '' : 'Please enter a valid barcode';
+        if (onSubmit) {
+            // On submit: show error if empty or invalid
+            primaryError.textContent = (primaryValue.trim() && isPrimaryValid) ? '' : 'Please enter a valid barcode';
+        } else {
+            // During input: only show error if user has typed and it's invalid
+            const hasPrimaryContent = primaryValue.trim().length > 0;
+            primaryError.textContent = (isPrimaryValid || !hasPrimaryContent) ? '' : 'Please enter a valid barcode';
+        }
     }
 
     if (secondaryBarcodeInput && barcodes === 2) {
-        secondaryError.textContent = isSecondaryValid ? '' : 'Please enter a valid barcode';
+        secondaryValue = secondaryBarcodeInput.value || '';
+
+        if (onSubmit) {
+            // On submit: If test requires 2 barcodes, validate secondary
+            if (barcodes === 2) {
+                const hasSecondaryContent = secondaryValue.trim().length > 0;
+                // Show error if user started typing but entered invalid barcode
+                secondaryError.textContent = (!hasSecondaryContent || validateBarcode(secondaryValue)) ? '' : 'Please enter a valid barcode';
+            }
+        } else {
+            // During input: only show error if user has typed and it's invalid
+            const hasSecondaryContent = secondaryValue.trim().length > 0;
+            secondaryError.textContent = (isSecondaryValid || !hasSecondaryContent) ? '' : 'Please enter a valid barcode';
+        }
     }
 
     // Show button only if all conditions are met
@@ -141,10 +170,16 @@ function validateAndUpdateButton() {
     const bloodTestTypeSelected = document.querySelector('#blood-test-type').value !== '';
 
     if (testTypeSelected && bloodTestTypeSelected && isPrimaryValid && isSecondaryValid) {
-        generateCsvButton.style.display = 'block';
+        if (validateBarcode(secondaryValue)) {
+            console.log(`secondary: ${secondaryValue} - ${validateBarcode(secondaryValue)}`)
+            generateCsvButton.style.display = 'block';
+        }
     } else {
         generateCsvButton.style.display = 'none';
     }
+
+    // Return validation status for form submission
+    return isPrimaryValid && isSecondaryValid;
 }
 
 function handleTestTypeChange() {
@@ -199,8 +234,9 @@ function handleBloodTestTypeChange() {
 }
 
 function render() {
+    let submitFlag = true;
     // Validate first before generating CSV
-    validateAndUpdateButton();
+    validateAndUpdateButton(submitFlag);
     const generateCsvButton = document.querySelector('#generate-csv');
 
     // Only proceed if button is visible (all validations passed)
