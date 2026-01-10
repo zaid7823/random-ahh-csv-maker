@@ -43,6 +43,10 @@
 	padding: 30px 0;
 }
 
+.form-group {
+	margin: 10px 0;
+}
+
 .form-label {
 	font-size: 14px;
 	margin: 0 0 3px 0;
@@ -65,8 +69,7 @@ option:hover {
 	box-shadow: 2px 2px 0px 0px #000;
 }
 
-.form-select:focus,
-.form-control:focus {
+.form-select:focus {
 	outline: none !important;
 	box-shadow: 0 0 0 2px #000;
 	border: 1px solid #000;
@@ -82,7 +85,7 @@ option:hover {
 
 .dropdown-row,
 .barcode-input-row {
-	padding: 10px 0 20px 0;
+	padding: 15px 0;
 }
 
 
@@ -119,7 +122,6 @@ option:hover {
 .reset-page-btn {
 	display: flex;
 	justify-content: center;
-	align-items: center;
 }
 
 .copy-btn {
@@ -140,6 +142,10 @@ option:hover {
 	border: 1px solid #1f1f1f;
 	box-shadow: 6px 4px 0px 0px #000;
 	max-width: 48% !important;
+}
+
+.csv-column {
+	padding: 10px;
 }
 
 .result-csv {
@@ -175,14 +181,3 @@ option:hover {
 	align-items: center;
 	gap: 10px;
 }
-
-@media (max-width: 767px) {
-
-	#generate-csv,
-	#reset-page {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-}
-
