@@ -285,8 +285,8 @@ function render() {
             let secondaryCsv = generateCsv(secondaryBarcodeInput.value, TESTS[test]?.secondary);
 
             const secondaryOutputDiv = document.createElement('div');
-            primaryOutputDiv.className = 'col-md-6 mx-auto csv-output';
-            secondaryOutputDiv.className = 'col-md-6 mx-auto csv-output';
+            primaryOutputDiv.className = 'col-md-5 mx-auto csv-output';
+            secondaryOutputDiv.className = 'col-md-5 mx-auto csv-output';
             // secondaryOutputDiv.className = 'csv-output';
 
             const secondaryOutput = document.createElement('pre');
